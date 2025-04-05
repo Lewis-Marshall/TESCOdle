@@ -19,21 +19,7 @@
 
 <body>
 
-  <!-- Changelog Popup -->
-  <div id="changelog-overlay" class="changelog-overlay">
-    <div class="changelog-popup">
-      <button class="close-btn" id="changelog-close">&times;</button>
-      <h2>Changelog Version 1.2</h2>
-      <ul>
-        <li>feat: share button - <a href="https://github.com/wyOmar" target="_blank"
-            rel="noopener noreferrer">wyOmar</a></li>
-      </ul>
-      <h2>Work in Progress</h2>
-      <ul>
-        <li>feat: add archive mode</li>
-        <ul>
-    </div>
-  </div>
+
 
   <!-- Added Zoom Wrapper -->
   <div class="zoom-wrapper">
@@ -47,6 +33,10 @@
 
     <main class='game-container'>
       <div class='info-card'>
+        <div style="display: flex; justify-content: space-between;">
+          <button id="last-button" class="last-button" type="button">last</button>
+          <button id="next-button" class="next-button" type="button">next</button>
+        </div>
         <div class='product-top'>
           <!-- IMAGE PLACEHOLDER -->
           <div class='img-container'>

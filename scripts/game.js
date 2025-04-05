@@ -48,24 +48,34 @@ async function getTodaysProduct() {
 
   const startDate = new Date("2022-01-10"); // Fixed start date
   const today = new Date();
-  const dayIndex = dateDiffInDays(startDate, today) - 1;
+  let dayIndex = dateDiffInDays(startDate, today) - 1;
+
+  const paramsString = window.location.search;
+  const searchParams = new URLSearchParams(paramsString);
+  const dayArg = searchParams.get("day");
+
+  if(dayArg) {
+    dayIndex = dayArg;
+  }
 
   const todayStr = formatDate(today); // Use YYYY-MM-DD format
-  const lastPlayedStr = window.localStorage.getItem("lastPlayed");
+  //const lastPlayedStr = window.localStorage.getItem("lastPlayed");
 
-  console.log(`Today's Date: ${todayStr}`);
-  console.log(`Last Played Date: ${lastPlayedStr}`);
+  //console.log(`Today's Date: ${todayStr}`);
+  //console.log(`Last Played Date: ${lastPlayedStr}`);
 
   // Check if a new day has started
-  if (lastPlayedStr !== todayStr) {
-    console.log("New day detected. Resetting game state.");
-    resetGameState();
-    window.localStorage.setItem("lastPlayed", todayStr);
+  //if (lastPlayedStr !== todayStr) {
+  //  console.log("New day detected. Resetting game state.");
+  //  resetGameState();
+  //  window.localStorage.setItem("lastPlayed", todayStr);
 
     // Refresh the page to reset the game state for the new day
-    window.location.reload();
-    return;
-  }
+    //window.location.reload();
+  //  return;
+ // }
+
+  resetGameState();
 
   if (dayIndex >= 0 && dayIndex < parsedData.length) {
     console.log(`Fetching product for day index: ${dayIndex}`);
@@ -677,6 +687,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const resultText = generateGameResultText(hasCorrectGuess, currentGuessCount);
     copyToClipboard(resultText);
   });
+
+  document.getElementById("last-button").addEventListener('click', () => {
+    const startDate = new Date("2022-01-10"); // Fixed start date
+    const today = new Date();
+    let dayIndex = dateDiffInDays(startDate, today) - 1;
+
+
+    const parser = new URL(window.location);
+    const currentDay = parser.searchParams.get("day") || dayIndex;
+    parser.searchParams.set("day", Number(currentDay) - 1);
+    window.location = parser.href;
+  });
+
+  document.getElementById('next-button').addEventListener('click', () => {
+    const startDate = new Date("2022-01-10"); // Fixed start date
+    const today = new Date();
+    let dayIndex = dateDiffInDays(startDate, today) - 1;
+
+
+    const parser = new URL(window.location);
+    const currentDay = parser.searchParams.get("day") || dayIndex;
+    parser.searchParams.set("day", Number(currentDay) + 1);
+    window.location = parser.href;
+  });
+
 });
 
 // DEBUGGING
